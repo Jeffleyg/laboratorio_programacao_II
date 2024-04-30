@@ -7,11 +7,13 @@ $(document).ready(function(){
     const coursesData = [
         {
             name: "Engenharia de Computação",
-            details: "Turno: Integral | Coordenação: Prof. Giancarlo"
+            details: "Turno: Integral | Coordenação: Prof. Giancarlo",
+            semesters: 8 // Definindo um número padrão de semestres
         },
         {
             name: "Administração",
-            details: "Turno: Noturno | Coordenação: Prof. Humberto"
+            details: "Turno: Noturno | Coordenação: Prof. Humberto",
+            semesters: 8 // Definindo um número padrão de semestres
         }
     ];
 
@@ -23,18 +25,20 @@ $(document).ready(function(){
     function addCourseByUser() {
         const newCourseName = prompt("Digite o nome do novo curso:");
         const newCourseDetails = prompt("Digite os detalhes do novo curso:");
+        const semestersCount = parseInt(prompt("Digite o número de semestres do curso:"));
         
-        if (newCourseName && newCourseDetails) {
+        if (newCourseName && newCourseDetails && !isNaN(semestersCount)) {
             const newCourse = {
                 name: newCourseName,
-                details: newCourseDetails
+                details: newCourseDetails,
+                semesters: semestersCount
             };
 
             coursesData.push(newCourse);
 
             addCoursesWithButtons();
         } else {
-            alert("Por favor, preencha o nome e os detalhes do curso.");
+            alert("Por favor, preencha corretamente o nome, os detalhes e o número de semestres do curso.");
         }
     }
 
@@ -75,7 +79,7 @@ $(document).ready(function(){
         const semestersHeader = $("<header>").addClass("semester-header").text("Semestres:");
         container.append(semestersHeader);
 
-        for (let i = 1; i <= 8; i++) {
+        for (let i = 1; i <= course.semesters; i++) {
             const semesterHeader = $("<header>").addClass("semester-header").text(`Semestre ${i}`);
             container.append(semesterHeader);
         }
