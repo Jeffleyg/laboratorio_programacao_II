@@ -1,27 +1,17 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
-
 const app = express();
+const cursosRouter = require('./routes/cursos');
+const ccrsRouter = require('./routes/ccrs');
 
-app.use(cors());
-app.use(bodyParser.json());
+// Middlewares
+app.use(express.json());
 
-/*const cursosRoutes = require('./routes/cursos');
-const ccrsRoutes = require('./routes/ccrs');
+// Rotas
+app.use('/cursos', cursosRouter);
+app.use('/ccrs', ccrsRouter);
 
-app.use('/api/cursos', cursosRoutes);
-app.use('/api/ccrs', ccrsRoutes);*/
-// Servir arquivos estáticos do diretório 'public'
-
-app.use(express.static('public'));
-app.get('/index', (req, res) => {
-    const indexPath = path.join(__dirname, 'public', 'index.html');
-    res.sendFile(indexPath);
-});
-
+// Porta do servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
